@@ -2,4 +2,4 @@ sudo: required
 services:
   - docker
 script:
-  - docker build --quiet=true -t saschpe/android-ndk .
+  - ./scripts/docker/build
