@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# Script to build transpiler Docker image.
+#
+# Needs root privileges or 'docker' group membership
+
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+. "${SCRIPT_DIR}/../inc.constants"
+. "${SCRIPT_DIR}/../inc.functions"
+
+
+# Functions
+function usage {
+    echo -e "Usage: ${0} [OPTIONS]"
+    exit 1
+}
+
+
+# Command-line arguments
+android_api=${DEFAULT_ANDROID_API}
+while [[ $# -gt 0 ]] ; do
+    key="$1"
+    case $key in
+    -h|--help)
+        usage
+        shift # past argument
+        ;;
+    *) # unknown option
+        ;;
+    esac
+    shift # past argument or value
+done
+
+
+# Let's roll
+safe docker build \
+    -t ${DOCKER_IMAGE}:latest \
+    .

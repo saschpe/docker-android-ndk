@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Script to pull and deploy transpiler Docker image.
+#
+# Needs root privileges or 'docker' group membership
+
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+. "${SCRIPT_DIR}/../inc.constants"
+. "${SCRIPT_DIR}/../inc.functions"
+
+# Update image (in case it's published)
+docker pull ${DOCKER_IMAGE}:latest
+
+# Run container
+safe docker run \
+    --rm \
+    ${DOCKER_IMAGE}:latest
