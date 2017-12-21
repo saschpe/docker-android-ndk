@@ -4,6 +4,15 @@
 
 Android NDK Docker container including CMake.
 
+
+## Usage
+Use like you would any other base image:
+
+    FROM saschpe/android-ndk
+    RUN apk add --no-cache mysql-client
+    ENTRYPOINT ["mysql"]
+
+
 ## Scripts
 These scripts simplify various tasks related to container building and
 publishing.
