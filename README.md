@@ -1,4 +1,4 @@
-# Android NDK
+# Docker Android NDK
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/saschpe/docker-android-ndk.svg?branch=master)](https://travis-ci.org/saschpe/docker-android-ndk)
 [![Docker Pulls](https://img.shields.io/docker/pulls/saschpe/android-ndk.svg)](https://hub.docker.com/r/saschpe/android-ndk/)
