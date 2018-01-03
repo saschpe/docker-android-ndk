@@ -17,7 +17,6 @@ function usage {
 
 
 # Command-line arguments
-android_api=${DEFAULT_ANDROID_API}
 while [[ $# -gt 0 ]] ; do
     key="$1"
     case $key in
