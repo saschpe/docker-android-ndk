@@ -4,7 +4,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/saschpe/android-ndk.svg)]()
 [![Docker Build Status](https://img.shields.io/docker/build/saschpe/android-ndk.svg)]()
 
-Android NDK Docker container including CMake.
+Android NDK Docker container including CMake based on Alpine Linux.
 
 
 ## Usage
