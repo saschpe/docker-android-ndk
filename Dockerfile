@@ -7,7 +7,7 @@ ENV NDK_ROOT $ANDROID_SDK_ROOT/ndk-bundle
 RUN yes | sdkmanager \
         "cmake;3.6.4111459" \
         "cmake;3.10.2.4988404" \
-        ndk-bundle \
+        "ndk-bundle" >/dev/null \
     && rm -rf  \
         # Delete simpleperf tool
         $NDK_ROOT/simpleperf \
