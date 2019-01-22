@@ -1,12 +1,13 @@
-FROM saschpe/android-sdk:latest
+FROM saschpe/android-sdk:28_28.0.3
 LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
 LABEL description="Android NDK"
 
 ENV NDK_ROOT $ANDROID_SDK_ROOT/ndk-bundle
 
-RUN sdkmanager \
+RUN yes | sdkmanager \
         "cmake;3.6.4111459" \
-        ndk-bundle \
+        "cmake;3.10.2.4988404" \
+        "ndk-bundle" >/dev/null \
     && rm -rf  \
         # Delete simpleperf tool
         $NDK_ROOT/simpleperf \
