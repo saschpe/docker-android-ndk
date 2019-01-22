@@ -1,4 +1,4 @@
-FROM saschpe/android-sdk:latest
+FROM saschpe/android-sdk:28_28.0.3
 LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
 LABEL description="Android NDK"
 
