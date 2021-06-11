@@ -1,19 +1,34 @@
-FROM saschpe/android-sdk:28_28.0.3
-LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
-LABEL description="Android NDK"
+#
+# Android NDK + SDK container image with build-tools.
+#
+# Contains JDK, Android SDK, Android NDK and Android Build Tools. Each version is
+# configurable. Build and publish with default arguments:
+#
+#   $ ./scripts/docker/build --docker-push
+#
+# Build with custom arguments:
+#
+#   $ ./scripts/docker/build --android-api 30 --ndk ndk;21.1.6352462
+#
 
-ENV NDK_ROOT $ANDROID_SDK_ROOT/ndk-bundle
+ARG jdk=11
+ARG android_api=30
+ARG android_build_tools=30.0.3
+
+FROM saschpe/android-sdk:jdk${jdk}_api${android_api}_${android_build_tools}
+ARG cmake=3.18.1
+ARG ndk=22.1.7171670
+LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
+LABEL description="Android NDK ${ndk} with CMake ${cmake} on SDK ${android_api} with build-tools ${android_build_tools} using JDK ${jdk}"
+
+ENV NDK_ROOT $ANDROID_SDK_ROOT/ndk/${ndk}
 
 RUN yes | sdkmanager \
-        "cmake;3.6.4111459" \
-        "cmake;3.10.2.4988404" \
-        "ndk-bundle" >/dev/null \
+        "cmake;${cmake}" \
+        "ndk;${ndk}" >/dev/null \
     && rm -rf  \
         # Delete simpleperf tool
         $NDK_ROOT/simpleperf \
-        # Delete STL version we don't care about
-        $NDK_ROOT/sources/cxx-stl/stlport \
-        $NDK_ROOT/sources/cxx-stl/gnu-libstdc++ \
         # Delete unused prebuild images
         $NDK_ROOT/prebuilt/android-mips* \
         # Delete obsolete Android platforms
