@@ -1,5 +1,0 @@
-sudo: required
-services:
-  - docker
-script:
-  - ./scripts/docker/build
