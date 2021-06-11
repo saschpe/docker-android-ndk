@@ -1,37 +1,103 @@
 #!/bin/bash
 #
-# Script to build transpiler Docker image.
-#
-# Needs root privileges or 'docker' group membership
+# Script to build container image. Needs root privileges or 'docker' group
+# membership when using Docker. Prefer using Podman on Linux instead.
 
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 . "${SCRIPT_DIR}/../inc.constants"
 . "${SCRIPT_DIR}/../inc.functions"
 
 
+# Default values
+DEFAULT_ANDROID_API=$(grep android_api= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
+DEFAULT_ANDROID_BUILD_TOOLS=$(grep android_build_tools= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
+DEFAULT_CMAKE=$(grep cmake= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
+DEFAULT_JDK=$(grep jdk= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
+DEFAULT_NDK=$(grep ndk= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
+
+
 # Functions
 function usage {
-    echo -e "Usage: ${0} [OPTIONS]"
-    exit 1
+  echo -e "Usage: ${0} [OPTIONS]"
+  echo -e "Options:"
+  echo -e "  --android-api API_LEVEL\t(default: ${DEFAULT_ANDROID_API})"
+  echo -e "  --android-build-tools VERSION\t(default: ${DEFAULT_ANDROID_BUILD_TOOLS})"
+  echo -e "  --cmake VERSION\t\t(default: ${DEFAULT_CMAKE})"
+  echo -e "  --jdk VERSION\t\t\t(default: ${DEFAULT_JDK})"
+  echo -e "  --ndk VERSION\t\t\t(default: ${DEFAULT_NDK})"
+  echo -e "  --docker-push\t\t\t(optional)"
+  exit 1
 }
 
 
 # Command-line arguments
+android_api="${DEFAULT_ANDROID_API}"
+android_build_tools="${DEFAULT_ANDROID_BUILD_TOOLS}"
+cmake="${DEFAULT_CMAKE}"
+jdk="${DEFAULT_JDK}"
+ndk="${DEFAULT_NDK}"
+docker_push=
 while [[ $# -gt 0 ]] ; do
-    key="$1"
-    case $key in
-    -h|--help)
-        usage
-        shift # past argument
-        ;;
-    *) # unknown option
-        ;;
-    esac
-    shift # past argument or value
+  key="$1"
+  case $key in
+  --android-api)
+    android_api="$2"
+    shift # past argument
+    ;;
+  --android-build-tools)
+    android_build_tools="$2"
+    shift # past argument
+    ;;
+  --cmake)
+    cmake="$2"
+    shift # past argument
+    ;;
+  --jdk)
+    jdk="$2"
+    shift # past argument
+    ;;
+  --ndk)
+    ndk="$2"
+    shift # past argument
+    ;;
+  --docker-push)
+    docker_push=true
+    ;;
+  -h|--help)
+    usage
+    shift # past argument
+    ;;
+  *) # unknown option
+    ;;
+  esac
+  shift # past argument or value
 done
 
 
 # Let's roll
+image_tag=jdk${jdk}_api${android_api}_${android_build_tools}_ndk${ndk}_cmake${cmake}
+
+approve "Building image tag ${image_tag}..."
 safe docker build \
-    -t ${DOCKER_IMAGE}:latest \
-    .
+  --build-arg android_api=${android_api} \
+  --build-arg android_build_tools=${android_build_tools} \
+  --build-arg cmake=${cmake} \
+  --build-arg jdk=${jdk} \
+  --build-arg ndk=${ndk} \
+  --tag ${DOCKER_IMAGE}:${image_tag} .
+if [ ${docker_push} ] ; then
+  safe docker push ${DOCKER_IMAGE}:${image_tag}
+fi
+
+# Update 'latest' tag if script argument match defaults
+if [ ${android_api} -eq ${DEFAULT_ANDROID_API} -a \
+     ${android_build_tools} = ${DEFAULT_ANDROID_BUILD_TOOLS} -a \
+     ${cmake} = ${DEFAULT_CMAKE} -a \
+     ${jdk} -eq ${DEFAULT_JDK} -a \
+     ${ndk} = ${DEFAULT_NDK} ]; then
+  approve "Tagging as 'latest'..."
+  safe docker tag ${DOCKER_IMAGE}:${image_tag} ${DOCKER_IMAGE}:latest
+  if [ ${docker_push} ] ; then
+    safe docker push ${DOCKER_IMAGE}:latest
+  fi
+fi
