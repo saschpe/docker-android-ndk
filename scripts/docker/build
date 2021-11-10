@@ -88,16 +88,3 @@ safe docker build \
 if [ ${docker_push} ] ; then
   safe docker push ${DOCKER_IMAGE}:${image_tag}
 fi
-
-# Update 'latest' tag if script argument match defaults
-if [ ${android_api} -eq ${DEFAULT_ANDROID_API} -a \
-     "${android_build_tools}" = "${DEFAULT_ANDROID_BUILD_TOOLS}" -a \
-     "${cmake}" = "${DEFAULT_CMAKE}" -a \
-     "${jdk}" = "${DEFAULT_JDK}" -a \
-     "${ndk}" = "${DEFAULT_NDK}" ]; then
-  approve "Tagging as 'latest'..."
-  safe docker tag ${DOCKER_IMAGE}:${image_tag} ${DOCKER_IMAGE}:latest
-  if [ ${docker_push} ] ; then
-    safe docker push ${DOCKER_IMAGE}:latest
-  fi
-fi
