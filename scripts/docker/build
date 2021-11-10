@@ -10,7 +10,6 @@ SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # Default values
 DEFAULT_ANDROID_API=$(grep android_api= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
-DEFAULT_ANDROID_BUILD_TOOLS=$(grep android_build_tools= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
 DEFAULT_CMAKE=$(grep cmake= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
 DEFAULT_JDK=$(grep jdk= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
 DEFAULT_NDK=$(grep ndk= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
@@ -21,7 +20,6 @@ function usage {
   echo -e "Usage: ${0} [OPTIONS]"
   echo -e "Options:"
   echo -e "  --android-api API_LEVEL\t(default: ${DEFAULT_ANDROID_API})"
-  echo -e "  --android-build-tools VERSION\t(default: ${DEFAULT_ANDROID_BUILD_TOOLS})"
   echo -e "  --cmake VERSION\t\t(default: ${DEFAULT_CMAKE})"
   echo -e "  --jdk VERSION\t\t\t(default: ${DEFAULT_JDK})"
   echo -e "  --ndk VERSION\t\t\t(default: ${DEFAULT_NDK})"
@@ -32,7 +30,6 @@ function usage {
 
 # Command-line arguments
 android_api="${DEFAULT_ANDROID_API}"
-android_build_tools="${DEFAULT_ANDROID_BUILD_TOOLS}"
 cmake="${DEFAULT_CMAKE}"
 jdk="${DEFAULT_JDK}"
 ndk="${DEFAULT_NDK}"
@@ -42,10 +39,6 @@ while [[ $# -gt 0 ]] ; do
   case $key in
   --android-api)
     android_api="$2"
-    shift # past argument
-    ;;
-  --android-build-tools)
-    android_build_tools="$2"
     shift # past argument
     ;;
   --cmake)
@@ -75,12 +68,11 @@ done
 
 
 # Let's roll
-image_tag=${android_api}_${android_build_tools}_jdk${jdk}_ndk${ndk}_cmake${cmake}
+image_tag=${android_api}_jdk${jdk}_ndk${ndk}_cmake${cmake}
 
 approve "Building image tag ${image_tag}..."
 safe docker build \
   --build-arg android_api=${android_api} \
-  --build-arg android_build_tools=${android_build_tools} \
   --build-arg cmake=${cmake} \
   --build-arg jdk=${jdk} \
   --build-arg ndk=${ndk} \
