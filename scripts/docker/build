@@ -75,7 +75,7 @@ done
 
 
 # Let's roll
-image_tag=jdk${jdk}_api${android_api}_${android_build_tools}_ndk${ndk}_cmake${cmake}
+image_tag=${android_api}_${android_build_tools}_jdk${jdk}_ndk${ndk}_cmake${cmake}
 
 approve "Building image tag ${image_tag}..."
 safe docker build \
@@ -91,10 +91,10 @@ fi
 
 # Update 'latest' tag if script argument match defaults
 if [ ${android_api} -eq ${DEFAULT_ANDROID_API} -a \
-     ${android_build_tools} = ${DEFAULT_ANDROID_BUILD_TOOLS} -a \
-     ${cmake} = ${DEFAULT_CMAKE} -a \
-     ${jdk} -eq ${DEFAULT_JDK} -a \
-     ${ndk} = ${DEFAULT_NDK} ]; then
+     "${android_build_tools}" = "${DEFAULT_ANDROID_BUILD_TOOLS}" -a \
+     "${cmake}" = "${DEFAULT_CMAKE}" -a \
+     "${jdk}" = "${DEFAULT_JDK}" -a \
+     "${ndk}" = "${DEFAULT_NDK}" ]; then
   approve "Tagging as 'latest'..."
   safe docker tag ${DOCKER_IMAGE}:${image_tag} ${DOCKER_IMAGE}:latest
   if [ ${docker_push} ] ; then
