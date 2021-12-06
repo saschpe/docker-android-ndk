@@ -68,15 +68,17 @@ done
 
 
 # Let's roll
-image_tag=${android_api}_jdk${jdk}_ndk${ndk}_cmake${cmake}
+image_tag="${android_api}-jdk${jdk}-ndk${ndk}-cmake${cmake}"
+
+if [ ${docker_push} ] ; then
+  buildx_command="--push"
+fi
 
 approve "Building image tag ${image_tag}..."
-safe docker build \
+safe docker buildx build --platform linux/amd64,linux/arm64 \
+  ${buildx_command} \
   --build-arg android_api=${android_api} \
   --build-arg cmake=${cmake} \
   --build-arg jdk=${jdk} \
   --build-arg ndk=${ndk} \
   --tag ${DOCKER_IMAGE}:${image_tag} .
-if [ ${docker_push} ] ; then
-  safe docker push ${DOCKER_IMAGE}:${image_tag}
-fi

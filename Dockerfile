@@ -14,9 +14,9 @@
 ARG jdk=11.0.13_8
 ARG android_api=31
 
-FROM saschpe/android-sdk:${android_api}_jdk${jdk}
+FROM saschpe/android-sdk:${android_api}-jdk${jdk}
 ARG cmake=3.18.1
-ARG ndk=22.1.7171670
+ARG ndk=23.1.7779620
 LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
 LABEL description="Android NDK ${ndk} with CMake ${cmake} on SDK ${android_api} using JDK ${jdk}"
 
