@@ -18,6 +18,3 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build image
         run: ./scripts/docker/build
-      - name: Publish to Docker Hub
-        if: contains(github.ref, 'master')
-        run: ./scripts/docker/build --docker-push

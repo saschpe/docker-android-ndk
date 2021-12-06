@@ -75,6 +75,7 @@ if [ ${docker_push} ] ; then
 fi
 
 approve "Building image tag ${image_tag}..."
+docker buildx create --name temp --use
 safe docker buildx build --platform linux/amd64,linux/arm64 \
   ${buildx_command} \
   --build-arg android_api=${android_api} \
@@ -82,3 +83,4 @@ safe docker buildx build --platform linux/amd64,linux/arm64 \
   --build-arg jdk=${jdk} \
   --build-arg ndk=${ndk} \
   --tag ${DOCKER_IMAGE}:${image_tag} .
+docker buildx rm temp
