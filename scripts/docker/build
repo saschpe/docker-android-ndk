@@ -13,6 +13,7 @@ DEFAULT_ANDROID_API=$(grep android_api= "${SCRIPT_DIR}/../../Dockerfile" | cut -
 DEFAULT_CMAKE=$(grep cmake= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
 DEFAULT_JDK=$(grep jdk= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
 DEFAULT_NDK=$(grep ndk= "${SCRIPT_DIR}/../../Dockerfile" | cut -d"=" -f2)
+DEFAULT_PLATFORMS="linux/amd64,linux/arm64"
 
 
 # Functions
@@ -23,6 +24,7 @@ function usage {
   echo -e "  --cmake VERSION\t\t(default: ${DEFAULT_CMAKE})"
   echo -e "  --jdk VERSION\t\t\t(default: ${DEFAULT_JDK})"
   echo -e "  --ndk VERSION\t\t\t(default: ${DEFAULT_NDK})"
+  echo -e "  --docker-platforms\t\t(default: ${DEFAULT_PLATFORMS})"
   echo -e "  --docker-push\t\t\t(optional)"
   exit 1
 }
@@ -33,6 +35,7 @@ android_api="${DEFAULT_ANDROID_API}"
 cmake="${DEFAULT_CMAKE}"
 jdk="${DEFAULT_JDK}"
 ndk="${DEFAULT_NDK}"
+docker_platforms="${DEFAULT_PLATFORMS}"
 docker_push=
 while [[ $# -gt 0 ]] ; do
   key="$1"
@@ -51,6 +54,10 @@ while [[ $# -gt 0 ]] ; do
     ;;
   --ndk)
     ndk="$2"
+    shift # past argument
+    ;;
+  --docker-platforms)
+    docker_platforms="$2"
     shift # past argument
     ;;
   --docker-push)
@@ -74,13 +81,17 @@ if [ ${docker_push} ] ; then
   buildx_command="--push"
 fi
 
-approve "Building image tag ${image_tag}..."
 docker buildx create --name temp --use
-safe docker buildx build --platform linux/amd64,linux/arm64 \
+function cleanup() {
+  docker buildx rm temp
+}
+trap cleanup EXIT
+
+approve "Building image ${DOCKER_IMAGE}:${image_tag}"
+safe docker buildx build --platform ${docker_platforms} \
   ${buildx_command} \
   --build-arg android_api=${android_api} \
   --build-arg cmake=${cmake} \
   --build-arg jdk=${jdk} \
   --build-arg ndk=${ndk} \
   --tag ${DOCKER_IMAGE}:${image_tag} .
-docker buildx rm temp
