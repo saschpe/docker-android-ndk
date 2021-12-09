@@ -81,7 +81,7 @@ if [ ${docker_push} ] ; then
   buildx_command="--push"
 fi
 
-safe docker buildx ls | grep -q main || safe docker buildx create --name main
+docker buildx ls | grep -q main || safe docker buildx create --name main
 
 approve "Building image ${DOCKER_IMAGE}:${image_tag}"
 safe docker buildx build --platform ${docker_platforms} \
