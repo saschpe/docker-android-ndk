@@ -11,8 +11,8 @@
 #   $ ./scripts/docker/build --android-api 30 --ndk 21.1.6352462
 #
 
-ARG jdk=11.0.13_8
-ARG android_api=31
+ARG jdk=11.0.14.1_1
+ARG android_api=32
 
 FROM saschpe/android-sdk:${android_api}-jdk${jdk}
 ARG cmake=3.18.1
