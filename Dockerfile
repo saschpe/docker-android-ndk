@@ -11,12 +11,12 @@
 #   $ ./scripts/docker/build --android-api 30 --ndk 21.1.6352462
 #
 
-ARG jdk=11.0.14.1_1
-ARG android_api=32
+ARG jdk=11.0.15_10
+ARG android_api=33
 
 FROM saschpe/android-sdk:${android_api}-jdk${jdk}
 ARG cmake=3.18.1
-ARG ndk=23.1.7779620
+ARG ndk=25.0.8775105
 LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
 LABEL description="Android NDK ${ndk} with CMake ${cmake} on SDK ${android_api} using JDK ${jdk}"
 
