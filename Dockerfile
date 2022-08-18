@@ -11,23 +11,16 @@
 #   $ ./scripts/docker/build --android-api 30 --ndk 21.1.6352462
 #
 
-ARG jdk=11.0.15_10
+ARG jdk=11.0.16_8
 ARG android_api=33
 
 FROM saschpe/android-sdk:${android_api}-jdk${jdk}
-ARG cmake=3.18.1
+ARG cmake=3.22.1
 ARG ndk=25.0.8775105
 LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
 LABEL description="Android NDK ${ndk} with CMake ${cmake} on SDK ${android_api} using JDK ${jdk}"
 
 ENV NDK_ROOT "${ANDROID_SDK_ROOT}/ndk/${ndk}"
 RUN sdkmanager --install \
-        "cmake;${cmake}" \
-        "ndk;${ndk}" >/dev/null && \
-    rm -rf  \
-        # Delete simpleperf tool
-        $NDK_ROOT/simpleperf \
-        # Delete obsolete platforms
-        $NDK_ROOT/platforms/android-16 \
-        $NDK_ROOT/platforms/android-17 \
-        $NDK_ROOT/platforms/android-18
+    "cmake;${cmake}" \
+    "ndk;${ndk}"
