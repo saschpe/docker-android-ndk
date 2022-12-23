@@ -1,17 +1,17 @@
-# Docker Android NDK
+# Android NDK OCI / Docker image
 ![GitHub License](https://img.shields.io/github/license/saschpe/docker-android-ndk)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/saschpe/docker-android-ndk/CI)
 ![Docker Automated build](https://img.shields.io/docker/automated/saschpe/android-ndk)
 ![Docker Pulls](https://img.shields.io/docker/pulls/saschpe/android-ndk)
 
-Android NDK Docker container including CMake based on Alpine Linux.
+Android NDK OCI image including CMake based on `saschpe/android-sdk`.
 
 
 ## Usage
 Use like you would any other base image:
 
     FROM saschpe/android-ndk
-    RUN apk add --no-cache mysql-client
+    RUN apt update && apt install -y --no-install-recommends mysql-client
     ENTRYPOINT ["mysql"]
 
 
