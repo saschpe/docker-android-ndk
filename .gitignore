@@ -6,7 +6,10 @@
 [._]s[a-v][a-z]
 [._]sw[a-p]
 
-# Session
+# IntelliJ
+.idea
+
+# VIM
 Session.vim
 
 # Temporary
@@ -15,4 +18,4 @@ Session.vim
 # Auto-generated tag files
 tags
 
-
+.DS_Store

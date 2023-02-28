@@ -4,21 +4,21 @@
 # Contains JDK, Android SDK, Android NDK and Android Build Tools. Each version is
 # configurable. Build and publish with default arguments:
 #
-#   $ ./scripts/docker/build --docker-push
+#   $ ./scripts/build --push
 #
 # Build with custom arguments:
 #
-#   $ ./scripts/docker/build --android-api 30 --ndk 21.1.6352462
+#   $ ./scripts/build --android 33 --jdk 17.0.6_10 --ndk 25.2.9519653 --cmake 3.22.1
 #
 
-ARG jdk=17.0.5_8
-ARG android_api=33
+ARG jdk=17.0.6_10
+ARG android=33
 
-FROM saschpe/android-sdk:${android_api}-jdk${jdk}
+FROM saschpe/android-sdk:${android}-jdk${jdk}
 ARG cmake=3.22.1
-ARG ndk=25.1.8937393
+ARG ndk=25.2.9519653
 LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
-LABEL description="Android NDK ${ndk} with CMake ${cmake} on SDK ${android_api} using JDK ${jdk}"
+LABEL description="Android NDK ${ndk} with CMake ${cmake} on SDK ${android} using JDK ${jdk}"
 
 ENV NDK_ROOT "${ANDROID_SDK_ROOT}/ndk/${ndk}"
 RUN sdkmanager --install \

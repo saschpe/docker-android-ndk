@@ -1,6 +1,0 @@
-#!/bin/sh
-#
-# Collection of shared constants
-#
-
-DOCKER_IMAGE=saschpe/android-ndk

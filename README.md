@@ -1,4 +1,5 @@
 # Android NDK OCI / Docker image
+
 ![GitHub License](https://img.shields.io/github/license/saschpe/docker-android-ndk)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/saschpe/docker-android-ndk/CI)
 ![Docker Automated build](https://img.shields.io/docker/automated/saschpe/android-ndk)
@@ -6,26 +7,23 @@
 
 Android NDK OCI image including CMake based on `saschpe/android-sdk`.
 
-
 ## Usage
+
 Use like you would any other base image:
 
-    FROM saschpe/android-ndk
-    RUN apt update && apt install -y --no-install-recommends mysql-client
-    ENTRYPOINT ["mysql"]
+```Dockerfile
+FROM saschpe/android-ndk
+RUN sdkmanager --install emulator
+```
 
+## Building
 
-## Scripts
 These scripts simplify various tasks related to container building and
-publishing.
+publishing:
 
-    .
-    └─── scripts
-        ├── docker
-        │   └── build           Build the container locally
-        ├── inc.constants
-        └── inc.functions
-
+```shell
+./scripts/build --help
+```
 
 ## License
 
