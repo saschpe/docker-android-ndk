@@ -1,0 +1,116 @@
+#!/bin/sh
+#
+# Script to build container image.
+#
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${0}")" && pwd)
+. "${SCRIPT_DIR}/inc.functions"
+
+# Default values
+BUILDX_BUILDER_NAME=main
+DEFAULT_ANDROID=$(grep android= "${SCRIPT_DIR}/../Dockerfile" | cut -d"=" -f2)
+DEFAULT_CMAKE=$(grep cmake= "${SCRIPT_DIR}/../Dockerfile" | cut -d"=" -f2)
+DEFAULT_JDK=$(grep jdk= "${SCRIPT_DIR}/../Dockerfile" | cut -d"=" -f2)
+DEFAULT_NDK=$(grep ndk= "${SCRIPT_DIR}/../Dockerfile" | cut -d"=" -f2)
+DEFAULT_PLATFORMS="linux/amd64,linux/arm64"
+
+# Functions
+usage() {
+  printf "Usage: %s [OPTIONS]\n" "${0}"
+  printf "Options:\n"
+  printf "  --android API_LEVEL (default: %s)\n" "${DEFAULT_ANDROID}"
+  printf "  --cmake VERSION     (default: %s)\n" "${DEFAULT_CMAKE}"
+  printf "  --jdk VERSION       (default: %s)\n" "${DEFAULT_JDK}"
+  printf "  --ndk VERSION       (default: %s)\n" "${DEFAULT_NDK}"
+  printf "  --platforms         (default: %s)\n" "${DEFAULT_PLATFORMS}"
+  printf "  --clean             (optional, clean up build context afterwards)\n"
+  printf "  --push              (optional, upload images to Docker Hub)\n"
+  exit 1
+}
+
+# Command-line arguments
+android="${DEFAULT_ANDROID}"
+cmake="${DEFAULT_CMAKE}"
+jdk="${DEFAULT_JDK}"
+ndk="${DEFAULT_NDK}"
+platforms="${DEFAULT_PLATFORMS}"
+cmd_clean=
+cmd_push=
+while [ $# -gt 0 ]; do
+  key="$1"
+  case $key in
+  --android)
+    android="$2"
+    shift # past argument
+    ;;
+  --clean)
+    cmd_clean=true
+    ;;
+  --cmake)
+    cmake="$2"
+    shift # past argument
+    ;;
+  --jdk)
+    jdk="$2"
+    shift # past argument
+    ;;
+  --ndk)
+    ndk="$2"
+    shift # past argument
+    ;;
+  --platforms)
+    platforms="$2"
+    shift # past argument
+    ;;
+  --push)
+    cmd_push=true
+    ;;
+  -h | --help)
+    usage
+    shift # past argument
+    ;;
+  *) # unknown option
+    ;;
+  esac
+  shift # past argument or value
+done
+
+# Let's roll
+image_tag="saschpe/android-ndk:${android}-jdk${jdk}-ndk${ndk}-cmake${cmake}"
+
+if [ ${cmd_push} ]; then
+  buildx_command="--push"
+fi
+
+if [ ${cmd_clean} ]; then
+  cleanup() {
+    if docker buildx ls | grep -q ${BUILDX_BUILDER_NAME}; then
+      approve "Remove buildx builder '${BUILDX_BUILDER_NAME}'"
+      safe docker buildx rm ${BUILDX_BUILDER_NAME}
+    fi
+  }
+  trap cleanup EXIT
+fi
+
+if ! docker buildx ls | grep -q ${BUILDX_BUILDER_NAME}; then
+  approve "Create buildx builder '${BUILDX_BUILDER_NAME}'"
+  safe docker buildx create --name ${BUILDX_BUILDER_NAME}
+fi
+
+if [ ${cmd_push} ]; then
+  approve "Build and push image '${image_tag}'"
+  buildx_command="--push"
+else
+  approve "Build image '${image_tag}'"
+fi
+
+safe docker buildx build \
+  --platform "${platforms}" \
+  ${buildx_command} \
+  --builder ${BUILDX_BUILDER_NAME} \
+  --build-arg android="${android}" \
+  --build-arg cmake="${cmake}" \
+  --build-arg jdk="${jdk}" \
+  --build-arg ndk="${ndk}" \
+  --tag "${image_tag}" \
+  .

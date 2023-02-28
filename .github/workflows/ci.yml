@@ -1,5 +1,4 @@
 name: CI
-
 on:
   push:
     branches: [ master ]
@@ -13,4 +12,4 @@ jobs:
       - uses: actions/checkout@v2
       - uses: docker/setup-buildx-action@v1
       - name: Build image
-        run: ./scripts/docker/build --docker-platforms linux/amd64
+        run: ./scripts/build --platforms linux/amd64
