@@ -1,9 +1,9 @@
 # Android NDK OCI / Docker image
 
-![GitHub License](https://img.shields.io/github/license/saschpe/docker-android-ndk)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/saschpe/docker-android-ndk/CI)
-![Docker Automated build](https://img.shields.io/docker/automated/saschpe/android-ndk)
-![Docker Pulls](https://img.shields.io/docker/pulls/saschpe/android-ndk)
+[![License](https://img.shields.io/github/license/saschpe/docker-android-ndk)](https://opensource.org/licenses/Apache-2.0)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/saschpe/docker-android-ndk/ci.yml?branch=main)](https://github.com/saschpe/docker-android-ndk/actions?query=branch%3Amain++)
+[![Docker Pulls](https://img.shields.io/docker/pulls/saschpe/android-ndk)](https://hub.docker.com/r/saschpe/android-ndk)
+[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/saschpe/android-ndk)](https://hub.docker.com/r/saschpe/android-ndk)
 
 Android Native Development Kit (NDK) OCI image including CMake based on `saschpe/android-sdk`.
 
