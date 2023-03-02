@@ -1,8 +1,7 @@
 #
-# Android NDK + SDK container image with build-tools.
+# Android NDK OCI / Docker image.
 #
-# Contains JDK, Android SDK, Android NDK and Android Build Tools. Each version is
-# configurable. Build and publish with default arguments:
+# Build and publish with default arguments:
 #
 #   $ ./scripts/build --push
 #
