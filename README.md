@@ -5,7 +5,7 @@
 ![Docker Automated build](https://img.shields.io/docker/automated/saschpe/android-ndk)
 ![Docker Pulls](https://img.shields.io/docker/pulls/saschpe/android-ndk)
 
-Android NDK OCI image including CMake based on `saschpe/android-sdk`.
+Android Native Development Kit (NDK) OCI image including CMake based on `saschpe/android-sdk`.
 
 ## Usage
 
