@@ -26,8 +26,10 @@ jobs:
     strategy:
       max-parallel: 3
       matrix:
-        jdk: [ 11.0.18_10, 17.0.6_10, 17.0.7_7 ]
+        jdk: [ 11.0.18_10, 17.0.7_7 ]
         android: [ 31, 32, 33 ]
+        ndk: [ 25.2.9519653 ]
+        cmake: [ 3.18.1, 3.22.1 ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -39,7 +41,7 @@ jobs:
             ${{ env.IMAGE }}
             ghcr.io/${{ env.IMAGE }}
           tags: |
-            type=raw,value=${{ matrix.android }}-jdk${{ matrix.jdk }}
+            type=raw,value=${{ matrix.android }}-jdk${{ matrix.jdk }}-ndk${{ matrix.ndk }}-cmake${{ matrix.cmake }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker BuildX
@@ -68,6 +70,8 @@ jobs:
           build-args: |
             jdk=${{ matrix.jdk }} 
             android=${{ matrix.android }}
+            ndk=${{ matrix.ndk }}
+            cmake=${{ matrix.cmake }}
           provenance: true
           cache-from: type=registry,ref=user/app:latest
           cache-to: type=inline
