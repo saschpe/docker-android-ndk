@@ -27,7 +27,7 @@ jobs:
       max-parallel: 3
       matrix:
         jdk: [ 11.0.19_7, 17.0.7_7 ]
-        android: [ 31, 32, 33 ]
+        android: [ 31, 32, 33, 34 ]
         ndk: [ 25.2.9519653 ]
         cmake: [ 3.22.1 ]
     steps:

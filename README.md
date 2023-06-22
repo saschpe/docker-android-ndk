@@ -7,6 +7,20 @@
 
 Android Native Development Kit (NDK) OCI image including CMake based on `saschpe/android-sdk`.
 
+## Android SDK, NDK, CMake and JDK support
+
+The following JDK and Android SDK API level combinations are currently supported:
+
+|    | 11.0.19_7 | 17.0.7_7 |
+|----|-----------|----------|
+| 31 | ✅         | ✅        |
+| 32 | ✅         | ✅        |
+| 33 | ✅         | ✅        |
+| 34 | ✅         | ✅        |
+
+* CMake version: __3.22.1__
+* Android NDK version: __25.2.9519653__
+
 ## Usage
 
 Use like you would any other base image:
