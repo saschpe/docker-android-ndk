@@ -7,11 +7,11 @@
 #
 # Build with custom arguments:
 #
-#   $ ./scripts/build --android 33 --jdk 17.0.8_7 --ndk 25.2.9519653 --cmake 3.22.1
+#   $ ./scripts/build --android 34 --jdk 17.0.10_7 --ndk 25.2.9519653 --cmake 3.22.1
 #
 
-ARG jdk=17.0.8_7
-ARG android=33
+ARG jdk=17.0.10_7
+ARG android=34
 
 FROM saschpe/android-sdk:${android}-jdk${jdk}
 ARG cmake=3.22.1
