@@ -13,12 +13,12 @@ Docker image `saschpe/android-sdk`.
 The following JDK and Android SDK API level combinations are currently
 available:
 
-|    | 11.0 | 17.0 | 21.0 |
-|----|------|------|------|
-| 31 | ✅    | ✅    |      |
-| 32 | ✅    | ✅    | ✅    |
-| 33 | ✅    | ✅    | ✅    |
-| 34 | ✅    | ✅    | ✅    |
+|    | 11 | 17 | 21 | 22 |
+|----|----|----|----|----|
+| 31 | ✅ | ✅ |    |    |
+| 32 | ✅ | ✅ | ✅ | ✅ |
+| 33 | ✅ | ✅ | ✅ | ✅ |
+| 34 | ✅ | ✅ | ✅ | ✅ |
 
 * Android NDK versions: __25.2.9519653__ and __26.2.11394342__
 * CMake version: __3.22.1__
