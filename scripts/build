@@ -83,7 +83,7 @@ else
   approve "Build image '${image_tag}'"
 fi
 
-safe docker buildx build \
+safe docker build \
   --platform "${platforms}" \
   ${buildx_command} \
   --build-arg android="${android}" \

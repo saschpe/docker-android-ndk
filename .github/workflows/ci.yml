@@ -26,9 +26,9 @@ jobs:
     strategy:
       max-parallel: 3
       matrix:
-        jdk: [ 17.0.10_7, 21.0.2_13, 22.0.1_8 ]
-        android: [ 32, 33, 34 ]
-        ndk: [ 25.2.9519653, 26.3.11579264 ]
+        jdk: [ 17.0.12_7, 21.0.4_7, 22.0.2_9 ]
+        android: [ 34, 35 ]
+        ndk: [ 26.3.11579264, 27.0.12077973 ]
         cmake: [ 3.22.1 ]
     steps:
       - name: Checkout
