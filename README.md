@@ -21,9 +21,10 @@ available:
 | 34 | ✅  | ✅  | ✅  | ✅  |
 | 35 |    | ✅  | ✅  | ✅  |
 
-* Android 35 image NDK versions: __26.2.11394342__ and __27.0.12077973__
-* Older Android image NDK versions: __25.2.9519653__ and __26.2.11394342__
-* CMake version: __3.22.1__
+* Android 35 image NDK versions: __26.2.11394342__ and __27.2.12479018__
+  * Previous images: __25.2.9519653__ and __26.2.11394342__
+* CMake version: __3.31.1__
+  * Previous images: __3.22.1__
 
 ## Usage
 

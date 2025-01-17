@@ -23,6 +23,7 @@ usage() {
   printf "  --ndk VERSION       (default: %s)\n" "${DEFAULT_NDK}"
   printf "  --platforms         (default: %s)\n" "${DEFAULT_PLATFORMS}"
   printf "  --push              (optional, upload images to Docker Hub)\n"
+  printf "  --verbose           (optional)\n"
   exit 1
 }
 
@@ -33,6 +34,7 @@ jdk="${DEFAULT_JDK}"
 ndk="${DEFAULT_NDK}"
 platforms="${DEFAULT_PLATFORMS}"
 cmd_push=
+docker_progress=auto
 while [ $# -gt 0 ]; do
   key="$1"
   case $key in
@@ -58,6 +60,9 @@ while [ $# -gt 0 ]; do
     ;;
   --push)
     cmd_push=true
+    ;;
+  --verbose)
+    docker_progress=plain
     ;;
   -h | --help)
     usage
@@ -90,5 +95,6 @@ safe docker build \
   --build-arg cmake="${cmake}" \
   --build-arg jdk="${jdk}" \
   --build-arg ndk="${ndk}" \
+  --progress "${docker_progress}" \
   --tag "${image_tag}" \
   .
