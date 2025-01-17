@@ -7,7 +7,7 @@
 #
 # Build with custom arguments:
 #
-#   $ ./scripts/build --android 34 --jdk 22.0.1_8 --ndk 25.2.9519653 --cmake 3.22.1
+#   $ ./scripts/build --android 35 --jdk 22.0.2_9 --ndk 25.2.9519653 --cmake 3.22.1
 #
 
 ARG jdk=22.0.2_9
