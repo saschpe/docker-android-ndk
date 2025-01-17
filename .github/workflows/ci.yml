@@ -72,7 +72,8 @@ jobs:
             android=${{ matrix.android }}
             ndk=${{ matrix.ndk }}
             cmake=${{ matrix.cmake }}
-          provenance: true
+          provenance: ${{ github.event_name != 'pull_request' }}
+          sbom: ${{ github.event_name != 'pull_request' }}
           cache-from: type=registry,ref=user/app:latest
           cache-to: type=inline
       - name: Update Docker Hub repository description
