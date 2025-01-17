@@ -21,6 +21,7 @@ ARG ndk=27.2.12479018
 LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
 LABEL description="Android NDK ${ndk} with CMake ${cmake} on SDK ${android} using JDK ${jdk}"
 
+USER nonroot
 ENV NDK_ROOT="${ANDROID_SDK_ROOT}/ndk/${ndk}"
 RUN sdkmanager --install \
     "cmake;${cmake}" \
