@@ -7,7 +7,7 @@
 #
 # Build with custom arguments:
 #
-#   $ ./scripts/build --android 35 --jdk 22.0.2_9 --ndk 25.2.9519653 --cmake 3.22.1
+#   $ ./scripts/build --android 35 --jdk 22.0.2_9 --ndk 25.2.9519653 --cmake 3.31.1
 #
 
 ARG jdk=22.0.2_9
@@ -15,7 +15,7 @@ ARG android=35
 
 FROM saschpe/android-sdk:${android}-jdk${jdk}
 ARG android
-ARG cmake=3.22.1
+ARG cmake=3.31.1
 ARG jdk
 ARG ndk=27.2.12479018
 LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
