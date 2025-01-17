@@ -17,7 +17,7 @@ FROM saschpe/android-sdk:${android}-jdk${jdk}
 ARG android
 ARG cmake=3.22.1
 ARG jdk
-ARG ndk=27.0.12077973
+ARG ndk=27.2.12479018
 LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
 LABEL description="Android NDK ${ndk} with CMake ${cmake} on SDK ${android} using JDK ${jdk}"
 
