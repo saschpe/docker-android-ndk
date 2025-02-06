@@ -28,10 +28,14 @@ available:
 
 ## Usage
 
-Use like you would any other base image:
+```shell
+docker pull saschpe/android-ndk:35-jdk21.0.5_11-ndk27.2.12479018-cmake3.31.1
+```
+
+Use as a base image:
 
 ```Dockerfile
-FROM saschpe/android-ndk
+FROM saschpe/android-ndk:35-jdk21.0.5_11-ndk27.2.12479018-cmake3.31.1
 RUN sdkmanager --install emulator
 ```
 
