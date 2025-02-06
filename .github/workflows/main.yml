@@ -29,10 +29,12 @@ jobs:
     strategy:
       max-parallel: 3
       matrix:
-        jdk: [ 17.0.13_11, 21.0.5_11, 22.0.2_9 ]
+        jdk: [ 17.0.14_7, 21.0.6_7, 22.0.2_9 ]
         android: [ 34, 35 ]
         ndk: [ 26.3.11579264, 27.2.12479018 ]
         cmake: [ 3.31.1 ]
+    permissions:
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
