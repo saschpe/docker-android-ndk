@@ -10,32 +10,32 @@ Docker image `saschpe/android-sdk`.
 
 ## Android SDK, NDK, CMake and JDK support
 
-The following JDK and Android SDK API level combinations are currently
+The following JDK (horizontal axis) and Android SDK API level combinations are currently
 available:
 
-|    | 11 | 17 | 21 | 22 |
-|----|----|----|----|----|
-| 31 | ✅  | ✅  |    |    |
-| 32 | ✅  | ✅  | ✅  | ✅  |
-| 33 | ✅  | ✅  | ✅  | ✅  |
-| 34 | ✅  | ✅  | ✅  | ✅  |
-| 35 |    | ✅  | ✅  | ✅  |
+|    | 11 | 17 | 21 | 22 | 23 |
+|----|----|----|----|----|----|
+| 31 | ✅  | ✅  |    |    |    |
+| 32 | ✅  | ✅  | ✅  | ✅  |    |
+| 33 | ✅  | ✅  | ✅  | ✅  |    | 
+| 34 | ✅  | ✅  | ✅  | ✅  | ✅  | 
+| 35 |    | ✅  | ✅  | ✅  | ✅  |
 
-* Android 35 image NDK versions: __26.2.11394342__ and __27.2.12479018__
-  * Previous images: __25.2.9519653__ and __26.2.11394342__
-* CMake version: __3.31.1__
-  * Previous images: __3.22.1__
+* Android 35 image NDK versions: __27.2.12479018__ and __28.0.13004108__
+    * Previous images: __25.2.9519653__, __26.2.11394342__ and __26.2.11394342__
+* CMake version: __3.31.5__
+    * Previous images: __3.22.1__, __3.31.1__
 
 ## Usage
 
 ```shell
-docker pull saschpe/android-ndk:35-jdk21.0.5_11-ndk27.2.12479018-cmake3.31.1
+docker pull saschpe/android-ndk:35-jdk21.0.5_11-ndk28.0.13004108-cmake3.31.5
 ```
 
 Use as a base image:
 
 ```Dockerfile
-FROM saschpe/android-ndk:35-jdk21.0.5_11-ndk27.2.12479018-cmake3.31.1
+FROM saschpe/android-ndk:35-jdk21.0.5_11-ndk28.0.13004108-cmake3.31.5
 RUN sdkmanager --install emulator
 ```
 
