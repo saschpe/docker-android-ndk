@@ -12,6 +12,7 @@ DEFAULT_CMAKE=$(grep cmake= "${SCRIPT_DIR}/../Dockerfile" | cut -d"=" -f2)
 DEFAULT_JDK=$(grep jdk= "${SCRIPT_DIR}/../Dockerfile" | cut -d"=" -f2)
 DEFAULT_NDK=$(grep ndk= "${SCRIPT_DIR}/../Dockerfile" | cut -d"=" -f2)
 DEFAULT_PLATFORMS="linux/amd64,linux/arm64"
+DEFAULT_TOOL=$( (command -v docker || command -v podman) | grep -o '[^/]*$')
 
 # Functions
 usage() {
@@ -34,42 +35,22 @@ jdk="${DEFAULT_JDK}"
 ndk="${DEFAULT_NDK}"
 platforms="${DEFAULT_PLATFORMS}"
 cmd_push=
-docker_progress=auto
+progress=auto
+tool="${DEFAULT_TOOL}"
 while [ $# -gt 0 ]; do
   key="$1"
   case $key in
-  --android)
-    android="$2"
-    shift # past argument
-    ;;
-  --cmake)
-    cmake="$2"
-    shift # past argument
-    ;;
-  --jdk)
-    jdk="$2"
-    shift # past argument
-    ;;
-  --ndk)
-    ndk="$2"
-    shift # past argument
-    ;;
-  --platforms)
-    platforms="$2"
-    shift # past argument
-    ;;
-  --push)
-    cmd_push=true
-    ;;
-  --verbose)
-    docker_progress=plain
-    ;;
-  -h | --help)
-    usage
-    shift # past argument
-    ;;
-  *) # unknown option
-    ;;
+  --android) android="$2" shift ;; # past argument
+  --docker) tool="docker" ;;
+  --cmake) cmake="$2" shift ;;         # past argument
+  --jdk) jdk="$2" shift ;;             # past argument
+  --ndk) ndk="$2" shift ;;             # past argument
+  --platforms) platforms="$2" shift ;; # past argument
+  --podman) tool="podman" ;;
+  --push) cmd_push=true ;;
+  --verbose) progress=plain ;;
+  -h | --help) usage shift ;; # past argument
+  *) ;;                       # unknown option
   esac
   shift # past argument or value
 done
@@ -82,19 +63,19 @@ if [ ${cmd_push} ]; then
 fi
 
 if [ ${cmd_push} ]; then
-  approve "Build and push image '${image_tag}'"
-  buildx_command="--push"
+  approve "Build and push image '${image_tag}' with ${tool}"
+  push_command="--push"
 else
-  approve "Build image '${image_tag}'"
+  approve "Build image '${image_tag}' with ${tool}"
 fi
 
-safe docker build \
-  --platform "${platforms}" \
-  ${buildx_command} \
+safe "${tool}" build \
   --build-arg android="${android}" \
   --build-arg cmake="${cmake}" \
   --build-arg jdk="${jdk}" \
   --build-arg ndk="${ndk}" \
-  --progress "${docker_progress}" \
+  --platform "${platforms}" \
+  --progress "${progress}" \
+  ${push_command} \
   --tag "${image_tag}" \
   .
