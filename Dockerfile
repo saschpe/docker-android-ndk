@@ -7,7 +7,7 @@
 #
 # Build with custom arguments:
 #
-#   $ ./scripts/build --android 35 --jdk 23.0.2_7 --ndk 28.0.13004108 --cmake 3.31.5
+#   $ ./scripts/build --android 36 --jdk 23.0.2_7 --ndk 29.0.14206865 --cmake 3.31.6
 #
 
 ARG jdk=25.0.3_9
@@ -18,7 +18,7 @@ ARG android
 ARG cmake=4.1.2
 ARG jdk
 ARG ndk=30.0.14904198
-LABEL maintainer="Sascha Peilicke <sascha@peilicke.de"
+LABEL maintainer="Sascha Peilicke <sascha@peilicke.de>"
 LABEL description="Android NDK ${ndk} with CMake ${cmake} on SDK ${android} using JDK ${jdk}"
 
 USER nonroot
