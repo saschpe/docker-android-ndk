@@ -59,10 +59,6 @@ done
 image_tag="saschpe/android-ndk:${android}-jdk${jdk}-ndk${ndk}-cmake${cmake}"
 
 if [ ${cmd_push} ]; then
-  buildx_command="--push"
-fi
-
-if [ ${cmd_push} ]; then
   approve "Build and push image '${image_tag}' with ${tool}"
   push_command="--push"
 else
