@@ -1,51 +1,49 @@
 # Android NDK OCI / Docker image
 
 [![License](https://img.shields.io/github/license/saschpe/docker-android-ndk)](https://opensource.org/licenses/Apache-2.0)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/saschpe/docker-android-ndk/main.yml?branch=main)](https://github.com/saschpe/docker-android-ndk/actions?query=branch%3Amain++)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/saschpe/docker-android-ndk/main.yml?branch=main)](https://github.com/saschpe/docker-android-ndk/actions?query=branch%3Amain)
 [![Docker Pulls](https://img.shields.io/docker/pulls/saschpe/android-ndk)](https://hub.docker.com/r/saschpe/android-ndk)
 [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/saschpe/android-ndk)](https://hub.docker.com/r/saschpe/android-ndk)
 
-Android Native Development Kit (NDK) OCI image including CMake based on
-Docker image `saschpe/android-sdk`.
+Android Native Development Kit (NDK) OCI image including CMake based on Docker image `saschpe/android-sdk`.
 
 ## Android SDK, NDK, CMake and JDK support
 
-The following JDK (horizontal axis) and Android SDK API level combinations are currently
-available:
+The following JDK (horizontal axis) and Android SDK API level combinations are currently available:
 
 |      | 11 | 17 | 21 | 22 | 23 | 25 |
 |------|----|----|----|----|----|----|
-| 31   | ✅  | ✅  |    |    |    |    |
-| 32   | ✅  | ✅  | ✅  | ✅  |    |    |
-| 33   | ✅  | ✅  | ✅  | ✅  |    |    |
-| 34   | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
-| 35   |    | ✅  | ✅  |    | ✅  | ✅  |
-| 36   |    | ✅  | ✅  |    | ✅  | ✅  |
-| 36.1 |    | ✅  | ✅  |    | ✅  | ✅  |
-| 37.0 |    | ✅  | ✅  |    | ✅  | ✅  |
+| 31   | ✅ | ✅ |    |    |    |    |
+| 32   | ✅ | ✅ | ✅ | ✅ |    |    |
+| 33   | ✅ | ✅ | ✅ | ✅ |    |    |
+| 34   | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 35   |    | ✅ | ✅ |    | ✅ | ✅ |
+| 36   |    | ✅ | ✅ |    | ✅ | ✅ |
+| 36.1 |    | ✅ | ✅ |    | ✅ | ✅ |
+| 37.0 |    | ✅ | ✅ |    | ✅ | ✅ |
 
-* Android 35 image NDK versions: **29.0.14206865** and **30.0.14904198**
-    * Previous images: **25.2.9519653**, **26.2.11394342** and **26.2.11394342**, **27.2.12479018** and **28.0.13004108**
+* Recent image NDK versions: **29.0.14206865** and **30.0.14904198**
+    * Previous images: **25.2.9519653**, **26.2.11394342**, **27.2.12479018** and
+      **28.0.13004108**
 * CMake version: **3.31.6**, **4.1.2**
     * Previous images: **3.22.1**, **3.31.1**, **3.31.5**
 
 ## Usage
 
 ```shell
-docker pull saschpe/android-ndk:37.0-jdk21.0.10_7-ndk30.0.14904198-cmake4.1.2
+docker pull saschpe/android-ndk:37.0-jdk25.0.3_9-ndk30.0.14904198-cmake4.1.2
 ```
 
 Use as a base image:
 
 ```Dockerfile
-FROM saschpe/android-ndk:37.0-jdk21.0.10_7-ndk30.0.14904198-cmake4.1.2
+FROM saschpe/android-ndk:37.0-jdk25.0.3_9-ndk30.0.14904198-cmake4.1.2
 RUN sdkmanager --install emulator
 ```
 
 ## Building
 
-These scripts simplify various tasks related to container building and
-publishing:
+These scripts simplify various tasks related to container building and publishing:
 
 ```shell
 ./scripts/build --help
@@ -53,7 +51,7 @@ publishing:
 
 ## License
 
-    Copyright 2017 Sascha Peilicke
+    Copyright 2017-2026 Sascha Peilicke
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
