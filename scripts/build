@@ -22,9 +22,9 @@ usage() {
   printf "  --cmake VERSION     (default: %s)\n" "${DEFAULT_CMAKE}"
   printf "  --jdk VERSION       (default: %s)\n" "${DEFAULT_JDK}"
   printf "  --ndk VERSION       (default: %s)\n" "${DEFAULT_NDK}"
-  printf "  --docker            (optional, build with Docker)"
+  printf "  --docker            (optional, build with Docker)\n"
   printf "  --platforms         (default: %s)\n" "${DEFAULT_PLATFORMS}"
-  printf "  --podman            (optional, build with Podman)"
+  printf "  --podman            (optional, build with Podman)\n"
   printf "  --push              (optional, upload images to Docker Hub)\n"
   printf "  --verbose           (optional)\n"
   exit 1
@@ -42,17 +42,17 @@ tool="${DEFAULT_TOOL}"
 while [ $# -gt 0 ]; do
   key="$1"
   case $key in
-  --android) android="$2" shift ;; # past argument
+  --android) android="$2" shift ;;
   --docker) tool="docker" ;;
-  --cmake) cmake="$2" shift ;;         # past argument
-  --jdk) jdk="$2" shift ;;             # past argument
-  --ndk) ndk="$2" shift ;;             # past argument
-  --platforms) platforms="$2" shift ;; # past argument
+  --cmake) cmake="$2" shift ;;
+  --jdk) jdk="$2" shift ;;
+  --ndk) ndk="$2" shift ;;
+  --platforms) platforms="$2" shift ;;
   --podman) tool="podman" ;;
   --push) cmd_push=true ;;
   --verbose) progress=plain ;;
-  -h | --help) usage shift ;; # past argument
-  *) ;;                       # unknown option
+  -h | --help) usage ;;
+  *) ;;
   esac
   shift # past argument or value
 done
