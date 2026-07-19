@@ -22,7 +22,9 @@ usage() {
   printf "  --cmake VERSION     (default: %s)\n" "${DEFAULT_CMAKE}"
   printf "  --jdk VERSION       (default: %s)\n" "${DEFAULT_JDK}"
   printf "  --ndk VERSION       (default: %s)\n" "${DEFAULT_NDK}"
+  printf "  --docker            (optional, build with Docker)"
   printf "  --platforms         (default: %s)\n" "${DEFAULT_PLATFORMS}"
+  printf "  --podman            (optional, build with Podman)"
   printf "  --push              (optional, upload images to Docker Hub)\n"
   printf "  --verbose           (optional)\n"
   exit 1
