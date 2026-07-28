@@ -20,6 +20,7 @@ usage() {
   printf "Options:\n"
   printf "  --android API_LEVEL (default: %s)\n" "${DEFAULT_ANDROID}"
   printf "  --cmake VERSION     (default: %s)\n" "${DEFAULT_CMAKE}"
+  printf "  --container         (optional, build with Apple Container)\n"
   printf "  --jdk VERSION       (default: %s)\n" "${DEFAULT_JDK}"
   printf "  --ndk VERSION       (default: %s)\n" "${DEFAULT_NDK}"
   printf "  --docker            (optional, build with Docker)\n"
@@ -43,8 +44,9 @@ while [ $# -gt 0 ]; do
   key="$1"
   case $key in
   --android) android="$2" shift ;;
-  --docker) tool="docker" ;;
   --cmake) cmake="$2" shift ;;
+  --container) tool="container" ;;
+  --docker) tool="docker" ;;
   --jdk) jdk="$2" shift ;;
   --ndk) ndk="$2" shift ;;
   --platforms) platforms="$2" shift ;;
