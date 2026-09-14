@@ -20,9 +20,9 @@ The following JDK (horizontal axis) and Android SDK API level combinations are c
 | 35   |    | ✅ | ✅ |    | ✅ | ✅ |
 | 36   |    | ✅ | ✅ |    | ✅ | ✅ |
 | 36.1 |    | ✅ | ✅ |    | ✅ | ✅ |
-| 37.0 |    | ✅ | ✅ |    | ✅ | ✅ |
+| 37.2 |    | ✅ | ✅ |    | ✅ | ✅ |
 
-* Recent image NDK versions: **29.0.14206865** and **30.0.14904198**
+* Recent image NDK versions: **29.0.14206865** and **30.0.16248370**
     * Previous images: **25.2.9519653**, **26.2.11394342**, **27.2.12479018** and
       **28.0.13004108**
 * CMake version: **3.31.6**, **4.1.2**
@@ -31,13 +31,13 @@ The following JDK (horizontal axis) and Android SDK API level combinations are c
 ## Usage
 
 ```shell
-docker pull saschpe/android-ndk:37.0-jdk25.0.3_9-ndk30.0.14904198-cmake4.1.2
+docker pull saschpe/android-ndk:37.2-jdk25.0.3_9-ndk30.0.14904198-cmake4.1.2
 ```
 
 Use as a base image:
 
 ```Dockerfile
-FROM saschpe/android-ndk:37.0-jdk25.0.3_9-ndk30.0.14904198-cmake4.1.2
+FROM saschpe/android-ndk:37.2-jdk25.0.3_9-ndk30.0.14904198-cmake4.1.2
 RUN sdkmanager --install emulator
 ```
 

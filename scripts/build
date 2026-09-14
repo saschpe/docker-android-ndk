@@ -11,7 +11,7 @@ DEFAULT_ANDROID=$(grep android= "${SCRIPT_DIR}/../Dockerfile" | cut -d"=" -f2)
 DEFAULT_CMAKE=$(grep cmake= "${SCRIPT_DIR}/../Dockerfile" | cut -d"=" -f2)
 DEFAULT_JDK=$(grep jdk= "${SCRIPT_DIR}/../Dockerfile" | cut -d"=" -f2)
 DEFAULT_NDK=$(grep ndk= "${SCRIPT_DIR}/../Dockerfile" | cut -d"=" -f2)
-DEFAULT_PLATFORMS="linux/amd64,linux/arm64"
+DEFAULT_PLATFORMS="linux/amd64"
 DEFAULT_TOOL=$( (command -v docker || command -v podman) | grep -o '[^/]*$')
 
 # Functions
