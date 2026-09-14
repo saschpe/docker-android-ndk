@@ -31,14 +31,14 @@ The following JDK (horizontal axis) and Android SDK API level combinations are c
 ## Usage
 
 ```shell
-docker pull saschpe/android-ndk:37.2-jdk25.0.3_9-ndk30.0.14904198-cmake4.1.2
+docker pull saschpe/android-ndk:37.2-jdk25.0.4_7-ndk30.0.14904198-cmake4.1.2
 ```
 
 Use as a base image:
 
 ```Dockerfile
-FROM saschpe/android-ndk:37.2-jdk25.0.3_9-ndk30.0.14904198-cmake4.1.2
-RUN sdkmanager --install emulator
+FROM saschpe/android-ndk:37.2-jdk25.0.4_7-ndk30.0.14904198-cmake4.1.2
+RUN android sdk install emulator
 ```
 
 ## Building
